@@ -19,3 +19,5 @@ const configuredCopilotUrl = (window as typeof window & { STOCKFLOW_COPILOT_API_
 // them to the Copilot process started by RUN_ALL_WINDOWS.cmd on port 8300.
 // The runtime Cloud Run URL is only for a deployed frontend.
 export const COPILOT_API_BASE_URL = isLocalHost ? '' : configuredCopilotUrl;
+
+export const GEMINI_API_KEY = (window as typeof window & { GEMINI_API_KEY?: string }).GEMINI_API_KEY ?? '';

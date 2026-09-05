@@ -17,20 +17,27 @@
   align-items: center;
   padding: 16px 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   animation: slideDown 0.3s ease-out forwards;
-  color: white;
+  font-family: 'Inter', Arial, sans-serif;
 }
 
 .alert-sos {
-  background-color: rgba(220, 38, 38, 0.95);
-  border: 2px solid #ef4444;
+  background-color: var(--danger-10, #F8E7E4);
+  border: 1px solid var(--danger, #C4483B);
+  color: var(--danger, #C4483B);
+}
+.alert-sos .alert-content span {
+  color: var(--text, #1C1B1A);
 }
 
 .alert-report {
-  background-color: rgba(234, 179, 8, 0.95);
-  border: 2px solid #facc15;
-  color: #1a1a1a;
+  background-color: var(--warning-10, #F6EBD8);
+  border: 1px solid var(--warning, #C98A2C);
+  color: var(--warning, #C98A2C);
+}
+.alert-report .alert-content span {
+  color: var(--text, #1C1B1A);
 }
 
 .alert-content {

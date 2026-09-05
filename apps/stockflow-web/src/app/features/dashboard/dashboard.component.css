@@ -1279,6 +1279,12 @@ td small { display: block; margin-top: 4px; color: var(--text); font-size: 8.5px
 .copilot-suggestions { display: flex; gap: 6px; padding: 4px 16px 8px; overflow-x: auto; scrollbar-width: none; }
 .copilot-suggestions button { flex: 0 0 auto; min-height: 27px; padding: 0 9px; border: 1px solid var(--border); border-radius: 4px; color: var(--text); background: var(--bg); font-size: 8.5px; cursor: pointer; }
 .copilot-suggestions button:hover { background: var(--bg-warm); }
+
+.copilot-autocomplete { position: absolute; bottom: 60px; left: 12px; right: 12px; max-height: 150px; overflow-y: auto; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 10; display: flex; flex-direction: column; }
+.copilot-autocomplete button { text-align: left; padding: 8px 12px; border: none; border-bottom: 1px solid var(--border-light); background: transparent; color: var(--text); font-size: 10px; cursor: pointer; }
+.copilot-autocomplete button:hover { background: var(--bg-warm); }
+.copilot-autocomplete button:last-child { border-bottom: none; }
+
 .copilot-popover__input { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 7px; width: calc(100% - 24px); margin: 8px 12px 12px; padding: 5px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg-warm); }
 .copilot-popover__input input { width: 100%; min-width: 0; height: 36px; padding: 0 9px; border: 0; outline: 0; color: var(--text); background: transparent; font: inherit; font-size: 10px; }
 .copilot-popover__input button { min-width: 58px; height: 36px; padding: 0 12px; border: 0; border-radius: 4px; color: var(--bg); background: var(--text); font: inherit; font-size: 10px; font-weight: 700; white-space: nowrap; cursor: pointer; }
