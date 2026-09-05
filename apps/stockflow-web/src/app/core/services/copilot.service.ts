@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { COPILOT_API_BASE_URL } from '../config/api.config';
+import { Observable, of } from 'rxjs';
+import { delay, map, catchError } from 'rxjs/operators';
+import { COPILOT_API_BASE_URL, GEMINI_API_KEY } from '../config/api.config';
+import { COPILOT_QA_DATA } from './copilot-qa-data';
 
 export interface CopilotChatRequest {
   conversationId: string;
@@ -35,6 +37,15 @@ export class CopilotService {
   constructor(private readonly http: HttpClient) {}
 
   chat(request: CopilotChatRequest): Observable<CopilotChatResponse> {
-    return this.http.post<CopilotChatResponse>(this.endpoint, request);
+    const normalizedMessage = request.message.toLowerCase().replace(/[?,.!]/g, '').trim();
+    
+    if (COPILOT_QA_DATA[normalizedMessage]) {
+      return of(COPILOT_QA_DATA[normalizedMessage]).pipe(delay(800));
+    }
+
+    return of({
+      answer: "I am a demo version of StockFlow Copilot. I can only answer specific hardcoded questions. Please use the suggestion bar to see what I can help with.",
+      answerType: 'ERROR'
+    } as CopilotChatResponse).pipe(delay(800));
   }
 }

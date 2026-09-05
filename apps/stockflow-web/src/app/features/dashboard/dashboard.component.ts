@@ -30,6 +30,7 @@ import { ImportDataService } from '../../core/services/import-data.service';
 import { IntelligenceDataService } from '../../core/services/intelligence-data.service';
 import { PrototypeStateService } from '../../core/services/prototype-state.service';
 import { CopilotService } from '../../core/services/copilot.service';
+import { COPILOT_QA_DATA } from '../../core/services/copilot-qa-data';
 import { ForecastGovernanceAlert, ForecastJob, ForecastSchedule, LatestForecastPosition } from '../../core/models/forecast-operations.models';
 import { ForecastOperationsService } from '../../core/services/forecast-operations.service';
 import { ReplenishmentPlan, TransferRecommendation } from '../../core/models/replenishment.models';
@@ -180,6 +181,8 @@ export class DashboardComponent implements OnInit {
   copilotInput = '';
   copilotOpen = false;
   copilotLoading = false;
+  filteredSuggestions: string[] = [];
+  availableQuestions: string[] = [];
   private readonly copilotConversationId = `stockflow-${crypto.randomUUID?.() ?? Date.now()}`;
   globalSearch = '';
   sidebarCollapsed = true;
@@ -382,10 +385,22 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.availableQuestions = Object.keys(COPILOT_QA_DATA);
     this.restoreNotificationState();
     this.applyThemePreference();
     this.loadDashboard();
     this.loadDashboardWarehouses();
+  }
+
+  onCopilotInputChange(): void {
+    const input = this.copilotInput.toLowerCase();
+    if (!input.trim()) {
+      this.filteredSuggestions = [];
+      return;
+    }
+    this.filteredSuggestions = this.availableQuestions
+      .filter(q => q.toLowerCase().includes(input))
+      .slice(0, 5); // show top 5 matches
   }
 
   openImage(url: string): void {
@@ -687,6 +702,7 @@ export class DashboardComponent implements OnInit {
 
   useCopilotSuggestion(message: string): void {
     this.copilotInput = message;
+    this.filteredSuggestions = [];
     this.sendCopilotMessage();
   }
 
@@ -695,6 +711,7 @@ export class DashboardComponent implements OnInit {
     if (!message || !this.data || this.copilotLoading) return;
     this.data.copilotMessages.push({ role: 'user', text: message, timestamp: 'Now' });
     this.copilotInput = '';
+    this.filteredSuggestions = [];
     this.copilotLoading = true;
     this.copilot.chat({
       conversationId: this.copilotConversationId,

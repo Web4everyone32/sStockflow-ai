@@ -879,8 +879,14 @@
     <button type="button" (click)="useCopilotSuggestion('Where is excess stock available for transfer?')">Transfer options</button>
   </div>
 
+  <div class="copilot-autocomplete" *ngIf="filteredSuggestions.length > 0">
+    <button type="button" *ngFor="let suggestion of filteredSuggestions" (click)="useCopilotSuggestion(suggestion)">
+      {{ suggestion }}
+    </button>
+  </div>
+
   <form class="copilot-popover__input" (ngSubmit)="sendCopilotMessage()">
-    <input [(ngModel)]="copilotInput" name="copilotInput" autocomplete="off" placeholder="Ask about inventory, expiry or routes…" [disabled]="copilotLoading">
+    <input [(ngModel)]="copilotInput" (ngModelChange)="onCopilotInputChange()" name="copilotInput" autocomplete="off" placeholder="Ask about inventory, expiry or routes…" [disabled]="copilotLoading">
     <button type="submit" aria-label="Send message" [disabled]="copilotLoading || !copilotInput.trim()">Send</button>
   </form>
 </section>
