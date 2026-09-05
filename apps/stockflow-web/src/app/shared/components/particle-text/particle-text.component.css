@@ -13,7 +13,7 @@
   overflow: hidden;
   touch-action: none;
   isolation: isolate;
-  background: #09090f;
+  background: var(--bg);
 }
 
 .particle-text__canvas {
