@@ -81,8 +81,9 @@ export class ParticleTextComponent implements AfterViewInit, OnDestroy {
   @Input() text: string = 'StockFlow AI';
   @Input() particleSize: number = 2;
   @Input() density: number = 4;
-  @Input() color: string = '#ffffff';
-  @Input() highlightColor: string = '#8b5cf6';
+  @Input() color: string = '#B8703D';
+  @Input() highlightColor: string = '#7A3E15';
+  @Input() glowColor: string = 'rgba(184,112,61,0.45)';
   @Input() scatter: number = 180;
   @Input() gatherDuration: number = 1600;
   @Input() stagger: number = 420;
@@ -214,7 +215,7 @@ export class ParticleTextComponent implements AfterViewInit, OnDestroy {
 
     if (this.glow && !this.reducedMotion) {
       this.ctx.shadowBlur = this.particleSize * 3;
-      this.ctx.shadowColor = this.highlightColor;
+      this.ctx.shadowColor = this.glowColor;
     } else {
       this.ctx.shadowBlur = 0;
     }
