@@ -322,10 +322,10 @@ export class OperationsWorkspaceComponent implements OnChanges, OnDestroy, OnIni
   ];
 
   routePlans: RoutePlan[] = [
-    { id: 'RTE-301', lane: 'Guwahati â†’ Nongpoh â†’ Shillong', stops: ['Guwahati Central', 'Nongpoh Checkpoint', 'Shillong Hub'], vehicle: '12T electric-assisted truck', loadKg: 10860, capacityKg: 12000, baselineKm: 118, optimizedKm: 99, duration: '2h 45m', costInr: 8400, co2Kg: 17.2, co2SavedKg: 7.8, priority: 'Critical', status: 'Ready for approval' },
-    { id: 'RTE-302', lane: 'Guwahati â†’ Silchar', stops: ['Guwahati Central', 'Shillong Hub', 'Silchar DC'], vehicle: '16T diesel BS-VI truck', loadKg: 13120, capacityKg: 16000, baselineKm: 365, optimizedKm: 332, duration: '8h 40m', costInr: 24150, co2Kg: 82.6, co2SavedKg: 12.4, priority: 'High', status: 'Optimized' },
-    { id: 'RTE-303', lane: 'Silchar â†’ Aizawl', stops: ['Silchar DC', 'Kolasib Checkpoint', 'Aizawl Hub'], vehicle: '9T CNG truck', loadKg: 7960, capacityKg: 9000, baselineKm: 188, optimizedKm: 173, duration: '5h 05m', costInr: 13800, co2Kg: 29.4, co2SavedKg: 8.7, priority: 'High', status: 'Approved' },
-    { id: 'RTE-304', lane: 'Guwahati â†’ Dimapur', stops: ['Guwahati Central', 'Nagaon Cross-dock', 'Dimapur Drop'], vehicle: '6T electric truck', loadKg: 5160, capacityKg: 6000, baselineKm: 302, optimizedKm: 281, duration: '6h 10m', costInr: 15400, co2Kg: 28.8, co2SavedKg: 10.2, priority: 'Medium', status: 'In transit' }
+    { id: 'RTE-301', lane: 'Guwahati → Nongpoh → Shillong', stops: ['Guwahati Central', 'Nongpoh Checkpoint', 'Shillong Hub'], vehicle: '12T electric-assisted truck', loadKg: 10860, capacityKg: 12000, baselineKm: 118, optimizedKm: 99, duration: '2h 45m', costInr: 8400, co2Kg: 17.2, co2SavedKg: 7.8, priority: 'Critical', status: 'Ready for approval' },
+    { id: 'RTE-302', lane: 'Guwahati → Silchar', stops: ['Guwahati Central', 'Shillong Hub', 'Silchar DC'], vehicle: '16T diesel BS-VI truck', loadKg: 13120, capacityKg: 16000, baselineKm: 365, optimizedKm: 332, duration: '8h 40m', costInr: 24150, co2Kg: 82.6, co2SavedKg: 12.4, priority: 'High', status: 'Optimized' },
+    { id: 'RTE-303', lane: 'Silchar → Aizawl', stops: ['Silchar DC', 'Kolasib Checkpoint', 'Aizawl Hub'], vehicle: '9T CNG truck', loadKg: 7960, capacityKg: 9000, baselineKm: 188, optimizedKm: 173, duration: '5h 05m', costInr: 13800, co2Kg: 29.4, co2SavedKg: 8.7, priority: 'High', status: 'Approved' },
+    { id: 'RTE-304', lane: 'Guwahati → Dimapur', stops: ['Guwahati Central', 'Nagaon Cross-dock', 'Dimapur Drop'], vehicle: '6T electric truck', loadKg: 5160, capacityKg: 6000, baselineKm: 302, optimizedKm: 281, duration: '6h 10m', costInr: 15400, co2Kg: 28.8, co2SavedKg: 10.2, priority: 'Medium', status: 'In transit' }
   ];
 
   sustainabilityRecords: SustainabilityRecord[] = [
@@ -741,7 +741,7 @@ export class OperationsWorkspaceComponent implements OnChanges, OnDestroy, OnIni
           this.prototype.patchRecord('routePlans', route.id, { ...route }, {
             module: 'Route Optimization',
             title: `${route.id} recalculated`,
-            detail: `${route.lane}: ${route.optimizedKm} km and ${route.co2Kg} kg COâ‚‚e using the ${response.solver}.`,
+            detail: `${route.lane}: ${route.optimizedKm} km and ${route.co2Kg} kg CO₂e using the ${response.solver}.`,
             tone: 'info'
           });
         });
@@ -779,7 +779,7 @@ export class OperationsWorkspaceComponent implements OnChanges, OnDestroy, OnIni
       });
       return;
     }
-    this.showToast(`${item.id} is not persisted yet. Recalculating it before the status changeâ€¦`);
+    this.showToast(`${item.id} is not persisted yet. Recalculating it before the status change…`);
     this.optimizeRoutes(() => {
       const persisted = this.routePlans.find(route => route.id === item.id);
       if (persisted?.optimizationRunId) this.advanceRoute(persisted);
@@ -1060,7 +1060,8 @@ export class OperationsWorkspaceComponent implements OnChanges, OnDestroy, OnIni
 
         if (!profile) {
           return null;
-        }return {
+        }
+        return {
           name,
           latitude: profile.latitude,
           longitude: profile.longitude
@@ -1377,7 +1378,7 @@ export class OperationsWorkspaceComponent implements OnChanges, OnDestroy, OnIni
     }, {
       module: 'Sustainability',
       title: `${destination} impact updated`,
-      detail: `${item.co2SavedKg} kg COâ‚‚e savings were realized when ${item.id} was delivered.`,
+      detail: `${item.co2SavedKg} kg CO₂e savings were realized when ${item.id} was delivered.`,
       tone: 'success'
     });
   }
